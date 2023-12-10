@@ -95,7 +95,7 @@ public class PlayerActions : MonoBehaviour
     private void Attack()
     {
         if (isAttacking || !readyToAttack) return;
-        Debug.Log("Attack!");
+        
         isAttacking = true;
         readyToAttack = false;
 
