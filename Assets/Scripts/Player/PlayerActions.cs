@@ -7,6 +7,9 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float moveSpeed = 4f;
     [SerializeField] private float jumpHeight = 7f;
 
+    public bool isRunning = false;
+    public bool isInAir = false;
+
     private float gravity = -15f;
     private Vector3 velocity;
     private CharacterController characterController;
@@ -39,5 +42,15 @@ public class PlayerActions : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded)
             velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+
+        if (characterController.isGrounded)
+            isInAir = false;
+        else 
+            isInAir = true;
+
+        if (moveDir != Vector3.zero)
+            isRunning = true;
+        else
+            isRunning = false;
     }
 }
