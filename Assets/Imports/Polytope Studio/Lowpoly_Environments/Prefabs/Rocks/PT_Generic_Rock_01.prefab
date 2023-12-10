@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 4328566817098671277}
   - component: {fileID: 31718447998784673}
   - component: {fileID: 4999471364133507516}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PT_Generic_Rock_01_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
