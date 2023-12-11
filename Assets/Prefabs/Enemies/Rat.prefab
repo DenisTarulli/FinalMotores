@@ -1171,7 +1171,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 409.4997, y: 19.740198, z: 558.90466}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5335769988835397783}
@@ -1186,7 +1186,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6677120652744758206}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 22921c51d107baf4f915b0a54b7d9886, type: 2}
   m_CullingMode: 0
@@ -1231,12 +1231,12 @@ NavMeshAgent:
   m_GameObject: {fileID: 6677120652744758206}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 5
+  m_Radius: 1
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 6
+  m_AngularSpeed: 200
+  m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1256,6 +1256,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d087a0734f540a4db8e9a1e4f932628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackRange: 4.5
+  damage: 18
+  attackDelay: 0.2
+  detectionDistance: 22
 --- !u!1 &6872415784424831411
 GameObject:
   m_ObjectHideFlags: 0

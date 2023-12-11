@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float attackRange = 3f;
     [SerializeField] private float damage = 18f;
     [SerializeField] private float attackDelay = 0.1f;
+    [SerializeField] private float detectionDistance = 40f;
 
     private GameObject player;
     private NavMeshAgent agent;
@@ -28,10 +29,19 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        distance = Vector3.Distance(transform.position, player.transform.position);
+        distance = Vector3.Distance(transform.position, player.transform.position);               
 
-        if (!isAttacking)
+        if (distance <= detectionDistance && !isAttacking)
+        {
+            agent.isStopped = false;
             agent.SetDestination(player.transform.position);
+            anim.SetBool("Walk", true);
+        }
+        else if (distance > detectionDistance + 5)
+        {
+            anim.SetBool("Walk", false);
+            agent.isStopped = true;
+        }
 
         if (distance <= agent.stoppingDistance && !isAttacking)
             StartCoroutine(Attack());

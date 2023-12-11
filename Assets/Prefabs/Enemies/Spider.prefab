@@ -545,10 +545,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 7
+  m_Speed: 7.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 200
   m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -571,7 +571,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 4.7
   damage: 18
-  attackDelay: 0.1
+  attackDelay: 0.2
+  detectionDistance: 22
 --- !u!1 &2036941997187919474
 GameObject:
   m_ObjectHideFlags: 0
