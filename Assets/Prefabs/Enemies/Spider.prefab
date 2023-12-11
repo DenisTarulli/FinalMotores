@@ -482,7 +482,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1898582654918956054}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9957792, z: -0, w: -0.09178122}
+  m_LocalRotation: {x: -0, y: -0.99577934, z: 0, w: -0.09177956}
   m_LocalPosition: {x: 395.64, y: 12.77, z: 594.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -499,7 +499,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1898582654918956054}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 693a652634775e141a3f47bd73520f9d, type: 2}
   m_CullingMode: 0
@@ -544,12 +544,12 @@ NavMeshAgent:
   m_GameObject: {fileID: 1898582654918956054}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 6
+  m_Radius: 1
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 6
+  m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -569,6 +569,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d087a0734f540a4db8e9a1e4f932628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackRange: 4.7
+  damage: 18
+  attackDelay: 0.1
 --- !u!1 &2036941997187919474
 GameObject:
   m_ObjectHideFlags: 0

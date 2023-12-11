@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class PlayerActions : MonoBehaviour
 {
-    [Header("Attack")]
+    [Header("Stats")]
     [SerializeField] private float attackDistance = 3f;
     [SerializeField] private float attackDelay = 0.43f;
     [SerializeField] private float attackSpeed = 1f;
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private LayerMask attackLayer;
+    [SerializeField] private float maxHealth = 100f;
 
+    private float currentHealth = 0;
     private bool isAttacking = false;
     private bool readyToAttack = true;
+
+    [Header("Health")]
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 4f;
@@ -34,6 +38,8 @@ public class PlayerActions : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+
+        currentHealth = maxHealth;
     }
 
     private void Update()
@@ -118,5 +124,11 @@ public class PlayerActions : MonoBehaviour
     {
         isAttacking = false;
         readyToAttack = true;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        Debug.Log("Damage taken");
+        currentHealth -= damage;
     }
 }
