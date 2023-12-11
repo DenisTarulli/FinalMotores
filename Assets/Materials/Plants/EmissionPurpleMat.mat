@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: EmissionBlueMat
+  m_Name: EmissionPurpleMat
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -79,6 +79,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.11764707, g: 0.06666667, b: 0.98823535, a: 1}
-    - _EmissionColor: {r: 0, g: 0.12247458, b: 5.992157, a: 1}
+    - _Color: {r: 0.6392157, g: 0.06666667, b: 0.9921569, a: 1}
+    - _EmissionColor: {r: 0.90146995, g: 0, b: 5.992157, a: 1}
   m_BuildTextureStacks: []
