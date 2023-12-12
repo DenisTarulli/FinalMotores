@@ -1,20 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RuneRocks : MonoBehaviour, IInteractable
 {
     [SerializeField] private FenceGate fenceGate;
-    [SerializeField] private GameObject fenceGateObj;
-    [SerializeField] private GameManager gameManager;
     [SerializeField] private Spawner spawner;
     [SerializeField] private int eventEnemiesAmount;
+    [SerializeField] private GateColour gateColour;
 
-    private bool eventCompleted = false;
+    public enum GateColour {GreenGate, PurpleGate, BlueGate}
+
+    private GameManager gameManager;
+
+    private bool interactable = true;
+
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
 
     public void Interact()
     {
-        if (!eventCompleted)
+        if (interactable && !gameManager.eventActive)
             StartCoroutine(StartEvent());
     }
 
@@ -28,14 +37,8 @@ public class RuneRocks : MonoBehaviour, IInteractable
     {
         Debug.Log("Event started!");
 
-        fenceGateObj.GetComponent<BoxCollider>().enabled = false;
-        gameManager.eventActive = true;
-
-        if (fenceGate.isOpen)
-        {
-            fenceGate.anim1.SetBool("Open", false);
-            fenceGate.anim2.SetBool("Open", false);
-        }
+        interactable = false;
+        gameManager.eventActive = true;       
 
         for (int i = 0; i < eventEnemiesAmount; i++)
         {
@@ -47,14 +50,8 @@ public class RuneRocks : MonoBehaviour, IInteractable
     private void EndEvent()
     {
         gameManager.eventActive = false;
-        eventCompleted = true;
         gameManager.killCounter = 0;
-
-        fenceGate.anim1.SetBool("Open", true);
-        fenceGate.anim2.SetBool("Open", true);
-
-        Debug.Log("Event completed!");
+        
+        Debug.Log($"Event completed, you got the {gateColour} rune!");
     }
-
-
 }
