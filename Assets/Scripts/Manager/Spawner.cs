@@ -8,40 +8,33 @@ public class Spawner : MonoBehaviour
     public struct SpawnableObject
     {
         public GameObject prefab;
-        [Range(0f, 1f)]
-        public float spawnChanceNumber;
+        public bool spawnMonster;
+        public GameObject spawnEffect;
     }
 
     [Header("References")]
-    [SerializeField] private SpawnableObject[] objects;
+    [SerializeField] private SpawnableObject[] objects;    
 
-    [Header("Variables")]
-    public float minSpawnRate = 0.75f;
-    public float maxSpawnRate = 2f;
-
-    private void OnEnable()
+    public void Spawn()
     {
-        Invoke(nameof(Spawn), Random.Range(minSpawnRate, maxSpawnRate));
-    }
-
-    private void OnDisable()
-    {
-        CancelInvoke();
-    }
-
-    private void Spawn()
-    {
-        float spawnChance = Random.value;
-
         foreach (var obj in objects)
         {
-            if (spawnChance >= obj.spawnChanceNumber)
+            if (obj.spawnMonster)
             {
-                GameObject monster = Instantiate(obj.prefab, transform.position, Quaternion.identity);
+                StartCoroutine(SpawnEnemy(obj.spawnEffect, obj.prefab));
                 break;
             }
         }
+    }
 
-        Invoke(nameof(Spawn), Random.Range(minSpawnRate, maxSpawnRate));
+    private IEnumerator SpawnEnemy(GameObject effect, GameObject prefab)
+    {
+        GameObject smoke = Instantiate(effect, transform.position, Quaternion.identity);
+
+        yield return new WaitForSeconds(0.2f);
+
+        Instantiate(prefab, transform.position, Quaternion.identity);
+
+        Destroy(smoke, 1f);
     }
 }

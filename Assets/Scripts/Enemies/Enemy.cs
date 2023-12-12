@@ -10,11 +10,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float damage = 18f;
     [SerializeField] private float attackDelay = 0.1f;
     [SerializeField] private float detectionDistance = 40f;
+    [SerializeField] private int maxHealth = 6;
+    [SerializeField] private int currentHealth = 6;
 
     private GameObject player;
     private NavMeshAgent agent;
     private Animator anim;
     private PlayerActions playerActions;
+    private GameManager gameManager;
 
     private bool isAttacking = false;
     private float distance;
@@ -25,6 +28,9 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         agent = GetComponent<NavMeshAgent>();        
         anim = GetComponent<Animator>();
+        gameManager = FindObjectOfType<GameManager>();
+
+        currentHealth = maxHealth;
     }
 
     private void Update()
@@ -69,5 +75,20 @@ public class Enemy : MonoBehaviour
         anim.SetBool("Attack", false);
 
         yield return new WaitForSeconds(attackDelay);
+    }
+
+    public void TakeDamage()
+    {
+        currentHealth -= 1;
+
+        Debug.Log(currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            if (gameManager.eventActive)
+                gameManager.killCounter += 1;
+
+            Destroy(gameObject);
+        }
     }
 }

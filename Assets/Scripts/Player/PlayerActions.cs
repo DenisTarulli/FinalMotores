@@ -115,7 +115,10 @@ public class PlayerActions : MonoBehaviour
     {
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, attackDistance, attackLayer))
         {
-            Debug.Log(hit.collider.name);
+            hit.collider.TryGetComponent(out Enemy enemy);
+
+            if (enemy != null)
+                enemy.TakeDamage();
         }
     }
 
