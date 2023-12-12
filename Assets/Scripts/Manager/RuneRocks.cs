@@ -10,9 +10,10 @@ public class RuneRocks : MonoBehaviour, IInteractable
     [SerializeField] private int eventEnemiesAmount;
     [SerializeField] private GateColour gateColour;
 
-    public enum GateColour {GreenGate, PurpleGate, BlueGate}
+    public enum GateColour {greenGate, purpleGate, blueGate}
 
     private GameManager gameManager;
+    [SerializeField] private string runeColour;
 
     private bool interactable = true;
 
@@ -38,7 +39,19 @@ public class RuneRocks : MonoBehaviour, IInteractable
         Debug.Log("Event started!");
 
         interactable = false;
-        gameManager.eventActive = true;       
+        gameManager.eventActive = true;
+
+        runeColour = gateColour.ToString();
+
+        if (runeColour == "greenGate")        
+            gameManager.greenRune = true;
+        
+        else if (runeColour == "purpleGate")        
+            gameManager.purpleRune = true;
+        
+        else       
+            gameManager.blueRune = true;
+        
 
         for (int i = 0; i < eventEnemiesAmount; i++)
         {
@@ -51,7 +64,5 @@ public class RuneRocks : MonoBehaviour, IInteractable
     {
         gameManager.eventActive = false;
         gameManager.killCounter = 0;
-        
-        Debug.Log($"Event completed, you got the {gateColour} rune!");
     }
 }
