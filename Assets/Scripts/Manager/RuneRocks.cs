@@ -64,5 +64,7 @@ public class RuneRocks : MonoBehaviour, IInteractable
     {
         gameManager.eventActive = false;
         gameManager.killCounter = 0;
+
+        gameManager.UpdateRunesUI();
     }
 }

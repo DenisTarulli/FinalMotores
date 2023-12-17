@@ -148,9 +148,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 4.7
-  damage: 18
+  damage: 6
   attackDelay: 0.1
   detectionDistance: 22
+  maxHealth: 6
+  currentHealth: 6
 --- !u!1 &847905501590550880
 GameObject:
   m_ObjectHideFlags: 0

@@ -88,7 +88,10 @@ public class Enemy : MonoBehaviour
             if (gameManager.eventActive)
                 gameManager.killCounter += 1;
 
-            Destroy(gameObject);
+            anim.SetLayerWeight(2, 1);
+            anim.SetBool("Death", true);
+
+            Destroy(gameObject, 1f);
         }
     }
 }

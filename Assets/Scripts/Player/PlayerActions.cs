@@ -7,32 +7,32 @@ public class PlayerActions : MonoBehaviour
     [Header("Stats")]
     [SerializeField] private float attackDistance = 3f;
     [SerializeField] private float attackDelay = 0.43f;
-    [SerializeField] private float attackSpeed = 1f;
+    [SerializeField] private float attackCooldown = 1f;
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private LayerMask attackLayer;
     [SerializeField] private float maxHealth = 100f;
-
-    private float currentHealth = 0;
-    private bool isAttacking = false;
-    private bool readyToAttack = true;
-
-    [Header("Health")]
+    
+    [HideInInspector] private float currentHealth = 0;
+    [HideInInspector] private bool isAttacking = false;
+    [HideInInspector] private bool readyToAttack = true;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 4f;
-    [SerializeField] private float jumpHeight = 7f;
+    [SerializeField] private float jumpHeight = 7f;    
 
+    [Header("References")]
+    [SerializeField] private GameObject hitEffect;
+    [SerializeField] private Camera cam;
+    [SerializeField] private PlayerHealthBar healthBar;
+    
+
+    [HideInInspector] private CharacterController characterController;
+    [HideInInspector] private Animator animator;
     [HideInInspector] public bool isRunning = false;
     [HideInInspector] public bool isInAir = false;
-
-    [SerializeField] private Camera cam;
-
-    private float gravity = -15f;
-    private Vector3 velocity;
-    private CharacterController characterController;
-    private Animator animator;
-    private string currentAnimationState;
-
+    [HideInInspector] private float gravity = -15f;
+    [HideInInspector] private string currentAnimationState;
+    [HideInInspector] private Vector3 velocity;
 
     private void Start()
     {
@@ -40,6 +40,8 @@ public class PlayerActions : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
 
         currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetHealth(currentHealth);
     }
 
     private void Update()
@@ -105,7 +107,7 @@ public class PlayerActions : MonoBehaviour
         isAttacking = true;
         readyToAttack = false;
 
-        Invoke(nameof(ResetAttack), attackSpeed);
+        Invoke(nameof(ResetAttack), attackCooldown);
         Invoke(nameof(AttackRaycast), attackDelay);
 
         ChangeAnimationState("Attack");
@@ -118,10 +120,13 @@ public class PlayerActions : MonoBehaviour
             hit.collider.TryGetComponent(out Enemy enemy);
 
             if (enemy != null)
+            {
                 enemy.TakeDamage();
+                GameObject hitFx = Instantiate(hitEffect, hit.point, Quaternion.identity);
+                Destroy(hitFx, 1f);
+            }
         }
     }
-
 
     private void ResetAttack()
     {
@@ -133,5 +138,7 @@ public class PlayerActions : MonoBehaviour
     {
         Debug.Log("Damage taken");
         currentHealth -= damage;
+
+        healthBar.SetHealth(currentHealth);
     }
 }
