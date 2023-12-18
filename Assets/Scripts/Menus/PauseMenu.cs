@@ -19,6 +19,7 @@ public class PauseMenu : MonoBehaviour
             if (gameIsPaused && !inOptions)
             {
                 Resume();
+                BackSound();
             }
             else if (!gameIsPaused && !inOptions)
                 Pause();
@@ -26,6 +27,7 @@ public class PauseMenu : MonoBehaviour
             {
                 pauseMenuUI.SetActive(true);
                 optionsMenu.SetActive(false);
+                BackSound();
                 Options();
             }
         }
@@ -41,6 +43,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
+        FindObjectOfType<AudioManager>().Play("Pause");
         Cursor.lockState = CursorLockMode.None;
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
@@ -49,6 +52,7 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
+        ConfirmSound();
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -66,7 +70,18 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        ConfirmSound();
         Debug.Log("Quitting game...");
         Application.Quit();
+    }
+
+    public void ConfirmSound()
+    {
+        FindObjectOfType<AudioManager>().Play("Confirm");
+    }
+
+    public void BackSound()
+    {
+        FindObjectOfType<AudioManager>().Play("Back");
     }
 }

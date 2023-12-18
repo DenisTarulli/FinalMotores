@@ -26,6 +26,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private PlayerHealthBar healthBar;
     
 
+    [HideInInspector] private AudioSource footstepsSound;
     [HideInInspector] private CharacterController characterController;
     [HideInInspector] private Animator animator;
     [HideInInspector] public bool isRunning = false;
@@ -36,6 +37,7 @@ public class PlayerActions : MonoBehaviour
 
     private void Start()
     {
+        footstepsSound = GetComponentInChildren<AudioSource>();
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
 
@@ -73,10 +75,15 @@ public class PlayerActions : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded)
             velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
 
-        if (moveDir != Vector3.zero)
-            isRunning = true;
-        else
+        if (moveDir != Vector3.zero)        
+            isRunning = true;        
+        else        
             isRunning = false;
+
+        if (isRunning && !isInAir)
+            footstepsSound.enabled = true;
+        else
+            footstepsSound.enabled = false;
     }
 
     private void ChangeAnimationState(string newState)

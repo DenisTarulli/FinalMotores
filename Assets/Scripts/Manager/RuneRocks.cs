@@ -13,7 +13,7 @@ public class RuneRocks : MonoBehaviour, IInteractable
     public enum GateColour {greenGate, purpleGate, blueGate}
 
     private GameManager gameManager;
-    [SerializeField] private string runeColour;
+    private string runeColour;
 
     private bool interactable = true;
 

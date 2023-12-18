@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        FindObjectOfType<AudioManager>().Play("Ambience");
+
         eventActive = false;
 
         if (!PlayerPrefs.HasKey("musicVolume"))
