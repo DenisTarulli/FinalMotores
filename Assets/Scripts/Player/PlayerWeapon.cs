@@ -8,7 +8,7 @@ public class PlayerWeapon : MonoBehaviour
     private PlayerActions playerActions;
     private bool isAttacking;
 
-    string currentAnimationState;
+    private string currentAnimationState;
 
     private void Start()
     {

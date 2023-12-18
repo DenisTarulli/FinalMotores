@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraLook : MonoBehaviour
 {
     [SerializeField] private float mouseSensitivity = 50f;
+    [SerializeField] private Slider sensSlider;
+    [SerializeField] private float minSens = 10f;
+    [SerializeField] private float maxSens = 100f;
 
     [SerializeField] private Transform playerBody;
 
@@ -12,12 +16,19 @@ public class CameraLook : MonoBehaviour
 
     private void Start()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        sensSlider.minValue = minSens;
+        sensSlider.maxValue = maxSens;
+
+        sensSlider.value = mouseSensitivity;
     }
 
     private void Update()
     {
         Rotation();
+
+        mouseSensitivity = sensSlider.value;
     }
 
     private void Rotation()

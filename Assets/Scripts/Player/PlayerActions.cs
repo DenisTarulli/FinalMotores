@@ -115,6 +115,8 @@ public class PlayerActions : MonoBehaviour
 
     private void AttackRaycast()
     {
+        FindObjectOfType<AudioManager>().Play("AxeSwing");
+
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, attackDistance, attackLayer))
         {
             hit.collider.TryGetComponent(out Enemy enemy);
@@ -136,7 +138,7 @@ public class PlayerActions : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        Debug.Log("Damage taken");
+        FindObjectOfType<AudioManager>().Play("Hurt");
         currentHealth -= damage;
 
         healthBar.SetHealth(currentHealth);

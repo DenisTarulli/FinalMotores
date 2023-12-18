@@ -13,13 +13,20 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int maxHealth = 6;
     [SerializeField] private int currentHealth = 6;
 
+    [Header("References")]
+    [SerializeField] private AudioSource hitSound;
+    [SerializeField] private AudioSource walkSound;
+    [SerializeField] private AudioSource attackSound;
+
     private GameObject player;
     private NavMeshAgent agent;
     private Animator anim;
     private PlayerActions playerActions;
     private GameManager gameManager;
+    private PauseMenu pauseMenu;
 
     private bool isAttacking = false;
+    private bool isDying = false;
     private float distance;
 
     private void Start()
@@ -29,6 +36,7 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();        
         anim = GetComponent<Animator>();
         gameManager = FindObjectOfType<GameManager>();
+        pauseMenu = FindObjectOfType<PauseMenu>();
 
         currentHealth = maxHealth;
     }
@@ -37,20 +45,30 @@ public class Enemy : MonoBehaviour
     {
         distance = Vector3.Distance(transform.position, player.transform.position);               
 
-        if (distance <= detectionDistance && !isAttacking)
-        {
-            agent.isStopped = false;
-            agent.SetDestination(player.transform.position);
-            anim.SetBool("Walk", true);
-        }
-        else if (distance > detectionDistance + 5)
-        {
-            anim.SetBool("Walk", false);
-            agent.isStopped = true;
-        }
+        if (pauseMenu.gameIsPaused)
+            walkSound.enabled = false;
 
-        if (distance <= agent.stoppingDistance && !isAttacking)
-            StartCoroutine(Attack());
+        if (agent.isStopped)
+            walkSound.enabled = false;
+        
+        if (!isDying)
+        {
+            if (distance <= detectionDistance && !isAttacking)
+            {
+                walkSound.enabled = true;
+                agent.isStopped = false;
+                agent.SetDestination(player.transform.position);
+                anim.SetBool("Walk", true);
+            }
+            else if (distance > detectionDistance + 5)
+            {
+                anim.SetBool("Walk", false);
+                agent.isStopped = true;
+            }
+
+            if (distance <= agent.stoppingDistance && !isAttacking)
+                StartCoroutine(Attack());
+        }        
     }
 
     private IEnumerator Attack()
@@ -60,6 +78,8 @@ public class Enemy : MonoBehaviour
 
         anim.SetLayerWeight(1, 1);
         anim.SetBool("Attack", true);
+
+        attackSound.Play();
 
         yield return new WaitForSeconds(0.3f);
 
@@ -79,12 +99,15 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage()
     {
-        currentHealth -= 1;
+        hitSound.Play();
 
-        Debug.Log(currentHealth);
+        currentHealth -= 1;
 
         if (currentHealth <= 0)
         {
+            agent.isStopped = true;
+            isDying = true;
+
             if (gameManager.eventActive)
                 gameManager.killCounter += 1;
 
