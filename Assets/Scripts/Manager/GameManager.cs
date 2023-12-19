@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public int killCounter;
     public bool eventActive;
 
+    public bool gameOver;
+
     public bool greenRune;
     public bool purpleRune;
     public bool blueRune;
@@ -16,6 +18,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image purpleRuneImg;
     [SerializeField] private Image blueRuneImg;
     [SerializeField] private Slider volumeSlider;
+    [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private GameObject winText;
+    [SerializeField] private GameObject loseText;
 
     private void Start()
     {
@@ -57,5 +62,19 @@ public class GameManager : MonoBehaviour
     private void Save()
     {
         PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
+    }
+
+    public void GameOverScreen()
+    {
+        Cursor.lockState = CursorLockMode.None;
+
+        gameOver = true;
+        Time.timeScale = 0f;
+        gameOverScreen.SetActive(true);
+
+        if (FindObjectOfType<PlayerActions>().currentHealth <= 0)
+            loseText.SetActive(true);
+        else
+            winText.SetActive(true);
     }
 }

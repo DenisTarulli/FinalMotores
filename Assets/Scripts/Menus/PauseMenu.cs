@@ -14,7 +14,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !FindObjectOfType<GameManager>().gameOver)
         {
             if (gameIsPaused && !inOptions)
             {
@@ -73,6 +73,11 @@ public class PauseMenu : MonoBehaviour
         ConfirmSound();
         Debug.Log("Quitting game...");
         Application.Quit();
+    }
+
+    public void PlayAgain()
+    {
+        SceneManager.LoadScene("GameScene");
     }
 
     public void ConfirmSound()

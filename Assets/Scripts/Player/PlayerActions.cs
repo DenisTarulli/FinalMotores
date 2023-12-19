@@ -12,7 +12,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private LayerMask attackLayer;
     [SerializeField] private float maxHealth = 100f;
     
-    [HideInInspector] private float currentHealth = 0;
+    [HideInInspector] public float currentHealth = 0;
     [HideInInspector] private bool isAttacking = false;
     [HideInInspector] private bool readyToAttack = true;
 
@@ -72,9 +72,6 @@ public class PlayerActions : MonoBehaviour
         if (characterController.isGrounded && velocity.y < 0)
             velocity.y = -2f;
 
-        if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded)
-            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
-
         if (moveDir != Vector3.zero)        
             isRunning = true;        
         else        
@@ -98,9 +95,7 @@ public class PlayerActions : MonoBehaviour
     {
         if (!isAttacking)
         {
-            if (!characterController.isGrounded)
-                ChangeAnimationState("Jump");
-            else if (!isRunning)
+            if (!isRunning)
                 ChangeAnimationState("Idle");
             else
                 ChangeAnimationState("Run");
@@ -149,5 +144,10 @@ public class PlayerActions : MonoBehaviour
         currentHealth -= damage;
 
         healthBar.SetHealth(currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            FindObjectOfType<GameManager>().GameOverScreen();
+        }
     }
 }

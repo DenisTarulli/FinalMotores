@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: AxeSwing
-    clip: {fileID: 8300000, guid: 5da376a6a5b3e2a4699debb6d9dd0f7a, type: 3}
-    volume: 0.35
+    clip: {fileID: 8300000, guid: 2827378892f538e4cb629df16f4b1504, type: 3}
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -65,7 +65,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Back
     clip: {fileID: 8300000, guid: 6e5ea94afa10f2c4c9d1605b199e1288, type: 3}
-    volume: 0.35
+    volume: 0.42
     pitch: 1
     loop: 0
     source: {fileID: 0}

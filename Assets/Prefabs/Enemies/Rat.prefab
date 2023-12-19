@@ -1268,7 +1268,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1364,7 +1364,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1460,7 +1460,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1547,10 +1547,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d087a0734f540a4db8e9a1e4f932628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 4.5
+  attackRange: 5.5
   damage: 8
   attackDelay: 0.2
-  detectionDistance: 22
+  detectionDistance: 27
   maxHealth: 6
   currentHealth: 6
   hitSound: {fileID: 8414063808162497667}
