@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 0f;
+
         Cursor.SetCursor(cursor, Vector2.zero, CursorMode.Auto);
         FindObjectOfType<AudioManager>().Play("Ambience");
         eventActive = false;

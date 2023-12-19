@@ -27,6 +27,7 @@ public class PlayerActions : MonoBehaviour
     [HideInInspector] private AudioSource footstepsSound;
     [HideInInspector] private CharacterController characterController;
     [HideInInspector] private Animator animator;
+    [HideInInspector] private PauseMenu pauseMenu;
     [HideInInspector] public bool isRunning = false;
     [HideInInspector] public bool isInAir = false;
     [HideInInspector] private float gravity = -15f;
@@ -38,6 +39,7 @@ public class PlayerActions : MonoBehaviour
         footstepsSound = GetComponentInChildren<AudioSource>();
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        pauseMenu = FindObjectOfType<PauseMenu>();
 
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
@@ -56,19 +58,24 @@ public class PlayerActions : MonoBehaviour
 
     private void Movement()
     {
-        float xInput = Input.GetAxisRaw("Horizontal");
-        float zInput = Input.GetAxisRaw("Vertical");
+        Vector3 moveDir = Vector3.zero;
 
-        Vector3 moveDir = transform.right * xInput + transform.forward * zInput;
+        if (!pauseMenu.gameIsPaused)
+        {
+            float xInput = Input.GetAxisRaw("Horizontal");
+            float zInput = Input.GetAxisRaw("Vertical");
 
-        characterController.Move(moveDir.normalized * moveSpeed * Time.deltaTime);
+            moveDir = transform.right * xInput + transform.forward * zInput;
 
-        velocity.y += gravity * Time.deltaTime;
+            characterController.Move(moveDir.normalized * moveSpeed * Time.deltaTime);
 
-        characterController.Move(velocity * Time.deltaTime);
+            velocity.y += gravity * Time.deltaTime;
 
-        if (characterController.isGrounded && velocity.y < 0)
-            velocity.y = -2f;
+            characterController.Move(velocity * Time.deltaTime);
+
+            if (characterController.isGrounded && velocity.y < 0)
+                velocity.y = -2f;
+        }        
 
         if (moveDir != Vector3.zero)        
             isRunning = true;        
@@ -102,7 +109,7 @@ public class PlayerActions : MonoBehaviour
 
     private void Attack()
     {
-        if (isAttacking || !readyToAttack || FindObjectOfType<PauseMenu>().gameIsPaused) return;
+        if (isAttacking || !readyToAttack || pauseMenu.gameIsPaused || !pauseMenu.gameStarted) return;
         
         isAttacking = true;
         readyToAttack = false;

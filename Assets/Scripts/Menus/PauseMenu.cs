@@ -8,13 +8,15 @@ public class PauseMenu : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject tutorialUI;
 
-    public bool gameIsPaused = false;
+    public bool gameIsPaused = true;
+    public bool gameStarted = false;
     public bool inOptions = false;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !FindObjectOfType<GameManager>().gameOver)
+        if (Input.GetKeyDown(KeyCode.Escape) && !FindObjectOfType<GameManager>().gameOver && gameStarted)
         {
             if (gameIsPaused && !inOptions)
             {
@@ -53,7 +55,6 @@ public class PauseMenu : MonoBehaviour
     public void MainMenu()
     {
         ConfirmSound();
-        //FindObjectOfType<AudioManager>().StopPlaying("Ambience");
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -80,6 +81,15 @@ public class PauseMenu : MonoBehaviour
     {
         SceneManager.LoadScene("GameScene");
         Time.timeScale = 1f;
+    }
+
+    public void StartGame()
+    {
+        Cursor.lockState= CursorLockMode.Locked;
+        Time.timeScale = 1f;
+        tutorialUI.SetActive(false);
+        gameIsPaused = false;
+        gameStarted = true;
     }
 
     public void ConfirmSound()

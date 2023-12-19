@@ -16,8 +16,6 @@ public class CameraLook : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-
         sensSlider.minValue = minSens;
         sensSlider.maxValue = maxSens;
 
@@ -33,6 +31,8 @@ public class CameraLook : MonoBehaviour
 
     private void Rotation()
     {
+        if (!FindObjectOfType<PauseMenu>().gameStarted) return;
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
