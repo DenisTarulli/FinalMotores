@@ -8,22 +8,20 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float attackDistance = 3f;
     [SerializeField] private float attackDelay = 0.43f;
     [SerializeField] private float attackCooldown = 1f;
-    [SerializeField] private int attackDamage = 1;
     [SerializeField] private LayerMask attackLayer;
     [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private float moveSpeed = 4f; 
     
     [HideInInspector] public float currentHealth = 0;
     [HideInInspector] private bool isAttacking = false;
     [HideInInspector] private bool readyToAttack = true;
 
-    [Header("Movement")]
-    [SerializeField] private float moveSpeed = 4f;
-    [SerializeField] private float jumpHeight = 7f;    
-
     [Header("References")]
     [SerializeField] private GameObject hitEffect;
     [SerializeField] private Camera cam;
     [SerializeField] private PlayerHealthBar healthBar;
+    [SerializeField] private GameObject takeDamageEffect;
+    [SerializeField] private Transform canvas;
     
 
     [HideInInspector] private AudioSource footstepsSound;
@@ -104,7 +102,7 @@ public class PlayerActions : MonoBehaviour
 
     private void Attack()
     {
-        if (isAttacking || !readyToAttack) return;
+        if (isAttacking || !readyToAttack || FindObjectOfType<PauseMenu>().gameIsPaused) return;
         
         isAttacking = true;
         readyToAttack = false;
@@ -145,9 +143,22 @@ public class PlayerActions : MonoBehaviour
 
         healthBar.SetHealth(currentHealth);
 
+        if (currentHealth > 0)
+        {
+            GameObject damageEffect = Instantiate(takeDamageEffect, canvas);
+            Destroy(damageEffect, 1f);
+        }
+
         if (currentHealth <= 0)
         {
             FindObjectOfType<GameManager>().GameOverScreen();
         }
+    }
+
+    public void FullHeal()
+    {
+        currentHealth = maxHealth;
+
+        healthBar.SetHealth(currentHealth);
     }
 }

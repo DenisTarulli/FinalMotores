@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public int killCounter;
+    public int runesObtained;
     public bool eventActive;
 
     public bool gameOver;
@@ -21,11 +22,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject winText;
     [SerializeField] private GameObject loseText;
+    [SerializeField] private GameObject crosshair;
+    [SerializeField] private Texture2D cursor;
 
     private void Start()
     {
+        Cursor.SetCursor(cursor, Vector2.zero, CursorMode.Auto);
         FindObjectOfType<AudioManager>().Play("Ambience");
-
         eventActive = false;
 
         if (!PlayerPrefs.HasKey("musicVolume"))
@@ -34,6 +37,12 @@ public class GameManager : MonoBehaviour
         }
         else
             Load();
+    }
+
+    private void Update()
+    {
+        if (runesObtained == 3 && !gameOver)
+            Invoke(nameof(GameOverScreen), 2f);
     }
 
     public void UpdateRunesUI()
@@ -67,14 +76,21 @@ public class GameManager : MonoBehaviour
     public void GameOverScreen()
     {
         Cursor.lockState = CursorLockMode.None;
+        crosshair.SetActive(false);
 
         gameOver = true;
         Time.timeScale = 0f;
         gameOverScreen.SetActive(true);
 
         if (FindObjectOfType<PlayerActions>().currentHealth <= 0)
+        {
             loseText.SetActive(true);
+            FindObjectOfType<AudioManager>().Play("Lose");
+        }
         else
+        {
             winText.SetActive(true);
+            FindObjectOfType<AudioManager>().Play("Win");
+        }
     }
 }

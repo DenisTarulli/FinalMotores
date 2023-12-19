@@ -53,6 +53,7 @@ public class PauseMenu : MonoBehaviour
     public void MainMenu()
     {
         ConfirmSound();
+        //FindObjectOfType<AudioManager>().StopPlaying("Ambience");
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -78,6 +79,7 @@ public class PauseMenu : MonoBehaviour
     public void PlayAgain()
     {
         SceneManager.LoadScene("GameScene");
+        Time.timeScale = 1f;
     }
 
     public void ConfirmSound()

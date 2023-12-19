@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(0.3f);
 
-        if (distance <= attackRange)
+        if (distance <= attackRange && !isDying)
             playerActions.TakeDamage(damage);
 
         yield return new WaitForSeconds(0.45f);

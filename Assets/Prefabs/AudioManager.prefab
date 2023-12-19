@@ -81,3 +81,33 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Win
+    clip: {fileID: 8300000, guid: fbf9ea5870403654c8a6392c19826e1f, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Event
+    clip: {fileID: 8300000, guid: c84a9a0dbb5d13c469406665164c31d6, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Lose
+    clip: {fileID: 8300000, guid: 39dea177f583ef147ad92162d7c51e67, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Completed
+    clip: {fileID: 8300000, guid: 6d72eb4624ee98147a269f6fefc7c804, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Rune
+    clip: {fileID: 8300000, guid: 305394ff6d0a7cc469c0c67aeaff5f6a, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

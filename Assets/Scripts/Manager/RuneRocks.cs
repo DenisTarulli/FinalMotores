@@ -9,6 +9,8 @@ public class RuneRocks : MonoBehaviour, IInteractable
     [SerializeField] private Spawner spawner;
     [SerializeField] private int eventEnemiesAmount;
     [SerializeField] private GateColour gateColour;
+    [SerializeField] private GameObject runeObtainedEffect;
+    [SerializeField] private Transform canvas;
 
     public enum GateColour {greenGate, purpleGate, blueGate}
 
@@ -36,7 +38,7 @@ public class RuneRocks : MonoBehaviour, IInteractable
 
     private IEnumerator StartEvent()
     {
-        Debug.Log("Event started!");
+        FindObjectOfType<AudioManager>().Play("Event");
 
         interactable = false;
         gameManager.eventActive = true;
@@ -62,6 +64,12 @@ public class RuneRocks : MonoBehaviour, IInteractable
 
     private void EndEvent()
     {
+        FindObjectOfType<AudioManager>().Play("Completed");
+        FindObjectOfType<PlayerActions>().FullHeal();
+
+        GameObject runeEffect = Instantiate(runeObtainedEffect, canvas);
+        Destroy(runeEffect, 2f);
+
         gameManager.eventActive = false;
         gameManager.killCounter = 0;
 
