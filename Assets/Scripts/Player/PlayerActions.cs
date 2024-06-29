@@ -150,12 +150,6 @@ public class PlayerActions : MonoBehaviour
 
         healthBar.SetHealth(currentHealth);
 
-        if (currentHealth > 0)
-        {
-            GameObject damageEffect = Instantiate(takeDamageEffect, canvas);
-            Destroy(damageEffect, 1f);
-        }
-
         if (currentHealth <= 0)
         {
             FindObjectOfType<GameManager>().GameOverScreen();
